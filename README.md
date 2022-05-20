@@ -5,6 +5,9 @@ Python developers at every level and across departments in BESTSELLER have contr
 
 The solution is inspired by this [blog post](https://www.section.io/engineering-education/license-plate-detection-and-recognition-using-opencv-and-pytesseract/).
 
+## Requirements
+Use Python 3.8
+
 ## Installation
 Use the package manager [conda](https://docs.conda.io/en/latest/) (e.g. Anaconda) to install required libaries.
 
