@@ -48,14 +48,14 @@ def plate_to_string(dev_mode, image_path, tesseract_path):
 
             x, y, w, h = cv2.boundingRect(c)
             new_img = image[y:y + h, x:x + w]
-            cv2.imwrite('./temp_contours/' + str(i) + '.png', new_img)
+            cv2.imwrite('./output_img/' + str(i) + '.png', new_img)
             i += 1
             break
 
     cv2.drawContours(image, [screenCnt], -1, (0, 255, 0), 3)
     cv2.imshow("image with detected license plate", image)
 
-    Cropped_loc = './temp_contours/1.png'
+    Cropped_loc = './output_img/1.png'
     cv2.imshow("cropped", cv2.imread(Cropped_loc))
     plate = pytesseract.image_to_string(Cropped_loc, lang='eng')
     print("Number plate is:", plate)
