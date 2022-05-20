@@ -1,7 +1,3 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import cv2
 import imutils
 import pytesseract
@@ -39,6 +35,8 @@ def plate_to_string(dev_mode, image_path, tesseract_path):
     cv2.drawContours(image2, cnts, -1, (0, 255, 0), 3)
     #cv2.imshow("Top 30 contours", image2)
 
+    # For every contour, create a new image framing the specific contour in a rectangle
+    # Save only the rectangle with approximately the shape of a license plate
     i = 1
     for c in cnts:
         perimeter = cv2.arcLength(c, True)
@@ -52,21 +50,24 @@ def plate_to_string(dev_mode, image_path, tesseract_path):
             i += 1
             break
 
+    # Add the selected contour to the original image
     cv2.drawContours(image, [screenCnt], -1, (0, 255, 0), 3)
     cv2.imshow("image with detected license plate", image)
 
+    # Crop the image and extract the text in the image
     Cropped_loc = './output_img/1.png'
     cv2.imshow("cropped", cv2.imread(Cropped_loc))
     plate = pytesseract.image_to_string(Cropped_loc, lang='eng')
     print("Number plate is:", plate)
 
+    # To keep the images open for visual inspection - Set dev_mode = True
     if dev_mode:
-        cv2.waitKey(0) # To keep the images open for visual inspection
+        cv2.waitKey(0)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     dev_mode = True # Change to false in production
-    image_path = r'C:\Users\adm.andersj\PycharmProjects\PythonDay\test_img\test_plate.jpg'
+    image_path = r'C:\Users\adm.andersj\PycharmProjects\Snakers_ALPR\test_img\test_plate.jpg'
     tesseract_path = r'C:\Users\adm.andersj\AppData\Local\Programs\Tesseract-OCR\\tesseract'
     plate_to_string(dev_mode, image_path, tesseract_path)
 
